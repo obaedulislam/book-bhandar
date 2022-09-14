@@ -92,10 +92,11 @@ const createCard = (book) => {
   div.classList.add("card");
 
   let overview = book.overview;
+  
   div.innerHTML = `
   <div class="image-container">
     <img
-      src="${book}"
+      src="${book.image}"
       alt=""
     />
     <div class="button-container">
@@ -105,9 +106,7 @@ const createCard = (book) => {
   </div>
   <div class="info-container">
     <h1>${book.name}</h1>
-    <p>
-      ${overview}
-    </p>
+    <p>${overview.length > 70 ? overview.slice(0,70) + '...' : overview }</p>
   </div>
 
 `;
@@ -129,7 +128,6 @@ const addToWishlist = (id) => {
 
 const displayCart = () => {
   const cart = getCartItems();
-  console.log(cart);
 
   cart.forEach((book) => {
     const div = createCard(book);
@@ -140,9 +138,10 @@ const displayCart = () => {
 const displayWishlist = () => {
   const wishlist = getWishlistItems();
   console.log(wishlist);
-
-  bookList.forEach((book) => {
+  const wishlistItem = document.getElementById("wishlist");
+  wishlistItem.textContent = '';
+  wishlist.forEach((book) => {
     const div = createCard(book);
-    document.getElementById("wishlist").appendChild(div);
+    wishlistItem.appendChild(div);
   });
 };
